@@ -4,6 +4,8 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>BF_Board</v-toolbar-title>
+      <v-btn class="ml-auto" :to="{ name: 'SignUp' }" >Sign Up</v-btn>
+      <v-btn class="ml-4" :to="{ name: 'Login' }">Login</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 
 export default {
   name: 'App',
@@ -35,5 +38,9 @@ export default {
     drawer: null,
     fixed: true
   }),
+
+  methods: {
+    ...mapActions('auth', ['authenticate'])
+  }
 };
 </script>

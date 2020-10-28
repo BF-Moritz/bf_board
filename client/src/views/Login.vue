@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
     name: 'Login',
@@ -51,7 +51,7 @@ export default {
     }),
 
     computed: {
-        ...mapState('users', { loading: 'isAuthenticatePending' })
+        ...mapState('auth', { loading: 'isAuthenticatePending' })
     },
 
     methods: {
@@ -63,13 +63,12 @@ export default {
             strategy: 'local',
             ...this.user
           })
-          console.log('logged in!');
+          this.$router.push('/boards')
           } catch(e) {
             console.error('Authentication error', e)
           }
         }
       },
-        // ...mapActions('auth', ['authenticate'])
     }
 }
 </script>
