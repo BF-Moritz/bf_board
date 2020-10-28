@@ -35,7 +35,14 @@ const routes = [
   {
     path: '/boards',
     name: 'Boards',
-    component: Boards
+    component: Boards,
+    beforeEnter(to, from, next) {
+      store.dispatch('auth/authenticate').then(() => {
+        next()
+      }).catch(() => {
+        next('/login')
+      })
+    }
   },
 ]
 

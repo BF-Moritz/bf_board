@@ -1,11 +1,15 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app dense>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>BF_Board</v-toolbar-title>
-      <v-btn class="ml-auto" :to="{ name: 'SignUp' }" >Sign Up</v-btn>
-      <v-btn class="ml-4" :to="{ name: 'Login' }">Login</v-btn>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn text v-if="!user" :to="{ name: 'SignUp' }" >Sign Up</v-btn>
+        <v-btn text v-if="!user" :to="{ name: 'Login' }">Login</v-btn>
+        <v-btn text v-if="user" @click="logout">Logout</v-btn>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -26,7 +30,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -39,8 +43,16 @@ export default {
     fixed: true
   }),
 
+  computed: {
+    ...mapState('auth', { user: 'payload' })
+  },
+
   methods: {
-    ...mapActions('auth', ['authenticate'])
+    ...mapActions('auth', { authLogout: 'logout' }),
+
+    logout() {
+      this.authLogout().then(() => this.$router.push('/login'))
+    }
   }
 };
 </script>

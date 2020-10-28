@@ -90,11 +90,9 @@ export default {
     methods: {
         async signUp() {
             if (this.valid) {
-                console.log(this);
                 const { User } = this.$FeathersVuex.api;
                 const user = new User(this.user)
                 let u = await user.save()
-                console.log(u, user);
                 this.$router.push('/login')
             }
         }

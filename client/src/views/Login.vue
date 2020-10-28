@@ -58,7 +58,6 @@ export default {
       async login() {
         if (this.valid) {
           try {
-            console.log(this.user, this);
           await this.$store.dispatch('auth/authenticate', {
             strategy: 'local',
             ...this.user
